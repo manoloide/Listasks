@@ -51,7 +51,7 @@ void draw() {
     }
   }
   if (selection == null && input.dclick) {
-    //tasks.add(new Task());
+    tasks.add(new Task());
   }
   if (selection != null && !tasks.contains(selection)) {
     selection.update();

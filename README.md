@@ -1,4 +1,4 @@
 Listasks
 ========
 
-Widegets para gestionar tareas.
+Wideget para gestionar tareas.
