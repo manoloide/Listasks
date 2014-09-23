@@ -24,7 +24,7 @@ class Key {
 
 class Input {
   boolean click, dclick, press, released, kclick;
-  int pressCount, mouseWheel, timepress;
+  int amouseX, amouseY, pressCount, mouseWheel, timepress;
   Key ENTER, BACKSPACE, ARRIBA, ABAJO, IZQUIERDA, DERECHA;
   Input() {
     click = dclick = released = press = false;
@@ -52,7 +52,11 @@ class Input {
     DERECHA.act();
   }
   void mpress() {
-    click = true;
+    if(!press){
+      amouseX = mouseX;
+      amouseY = mouseY;
+      click = true;
+    }
     press = true;
     pressCount = 0;
   }

@@ -20,6 +20,8 @@ class Task {
     w = widthMax;
     h = heightTask;
     title = new TextInput(20, (h-titleSize)*0.6, w-20, titleSize, jo.getString("title"));
+    creatingTime = jo.getString("creatingTime");
+    lastEdition = jo.getString("lastEdition");
   }
   void update() {
     if (mouseX >= x && mouseX < x+w && mouseY >= y && mouseY < y+h) on = true;
@@ -73,6 +75,7 @@ void loadTasks() {
     tasks.add(new Task(jtask));
   }
   //cargar tareas eliminadas
+  taskRemove = new ArrayList<Task>();
   File fr = new File(sketchPath(srcRemoved));
   if (fr.exists()) {
     jremoved = loadJSONArray(srcRemoved);
@@ -80,9 +83,15 @@ void loadTasks() {
     jremoved = new JSONArray();
     saveJSONArray(jremoved, srcRemoved);
   }
+  //agregar las tareas eliminadas
+  for (int i = 0; i < jremoved.size (); i++) {
+    JSONObject jtask = jremoved.getJSONObject(i);
+    taskRemove.add(new Task(jtask));
+  }
 }
 
 void saveTasks() {
+  //save task
   JSONArray aux = new JSONArray();
   for (int i = 0; i < tasks.size (); i++) {
     Task t = tasks.get(i);
@@ -90,6 +99,19 @@ void saveTasks() {
   }
   jtasks = aux;
   saveJSONArray(jtasks, srcTasks);
+  //save taskremoves
+  aux = new JSONArray();
+  for (int i = 0; i < taskRemove.size (); i++) {
+    Task t = taskRemove.get(i);
+    aux.append(t.getJson());
+  }
+  jremoved = aux;
+  saveJSONArray(jremoved, srcRemoved);
+}
+
+void removeTask(Task t){
+  taskRemove.add(t);
+  tasks.remove(t); 
 }
 
 //funcion que devuelve un string con datos del tiempo

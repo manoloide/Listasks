@@ -21,7 +21,7 @@ void init() {
   config();
 }
 
-ArrayList<Task> tasks;
+ArrayList<Task> tasks, taskRemove;
 boolean hide = false;
 JSONArray jtasks, jremoved;
 Input input;
@@ -50,8 +50,14 @@ void draw() {
       t.selected = true;
     }
   }
+  //add new task
   if (selection == null && input.dclick) {
     tasks.add(new Task());
+  }
+  //remove task
+  if(selection != null && input.released && input.amouseX-mouseX > widthMax/2){
+    removeTask(selection);
+    selection = null;
   }
   if (selection != null && !tasks.contains(selection)) {
     selection.update();
