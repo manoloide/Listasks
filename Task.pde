@@ -65,6 +65,7 @@ void loadTasks() {
   } else {
     jtasks = new JSONArray();
     saveJSONArray(jtasks, srcTasks);
+    tasks.add(new Task());
   }
   //agregar las tareas cargadas
   for (int i = 0; i < jtasks.size (); i++) {
